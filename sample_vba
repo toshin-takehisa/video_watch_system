@@ -1,3 +1,4 @@
+//test
 Option Explicit
 
 Dim 休暇候補日_1 As Date
