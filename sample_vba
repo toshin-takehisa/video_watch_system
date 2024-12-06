@@ -1,0 +1,968 @@
+Option Explicit
+
+Dim 休暇候補日_1 As Date
+Dim 休暇候補日_2 As Date
+Dim 休暇候補日_3 As Date
+Dim 休暇候補日_4 As Date
+Dim 休暇候補日_5 As Date
+Dim 休暇候補_cnt As Integer
+
+Private Sub 候補日並び替え()
+
+    Dim データ件数 As Integer
+    Dim i As Integer:    Dim j As Integer
+
+    Dim i1, i2, i3, i4 As Integer
+    Dim i1_WinCnt, i2_WinCnt, i3_WinCnt, i4_WinCnt As Integer
+    
+    Dim 日付
+    Dim 比較先_日付
+    Dim 比較元_項目 As String, 比較先_項目 As String
+    Dim 比較元_時間 As String, 比較先_時間 As String
+    Dim 比較元_理由 As String, 比較先_理由 As String
+    
+    '①候補日の数を確認
+    For i = 1 To 5
+        If "" <> カレンダー.Controls("L_候補" & i).Caption Then
+            データ件数 = データ件数 + 1
+        End If
+        
+    Next
+    
+    '②候補日1が何番目か
+    
+    For i = 2 To データ件数
+        日付 = Left(L_候補1.Caption, 8)
+        比較先_日付 = カレンダー.Controls("L_候補" & i).Caption
+        
+        '休暇区分入れ替え用
+        比較元_項目 = L_候補_区分1.Caption
+        比較先_項目 = カレンダー.Controls("L_候補_区分" & i).Caption
+        
+        比較元_時間 = L_候補_時間1.Caption
+        比較先_時間 = カレンダー.Controls("L_候補_時間" & i).Caption
+        
+        比較元_理由 = L_候補_理由1.Caption
+        比較先_理由 = カレンダー.Controls("L_候補_理由" & i).Caption
+        
+        If L_候補1.Caption > 比較先_日付 Then
+            '日付
+            L_候補1.Caption = Format(比較先_日付, "yy/mm/dd(aaa)")
+            カレンダー.Controls("L_候補" & i).Caption = 日付 & "(" & WeekdayName(Weekday(日付), True) & ")"
+            '休暇区分
+            L_候補_区分1.Caption = 比較先_項目
+            カレンダー.Controls("L_候補_区分" & i).Caption = 比較元_項目
+            '時間範囲
+            L_候補_時間1.Caption = 比較先_時間
+            カレンダー.Controls("L_候補_時間" & i).Caption = 比較元_時間
+            '理由
+            L_候補_理由1.Caption = 比較先_理由
+            カレンダー.Controls("L_候補_理由" & i).Caption = 比較元_理由
+        End If
+    Next
+    
+    For i = 3 To データ件数
+        日付 = Left(L_候補2.Caption, 8)
+        比較先_日付 = カレンダー.Controls("L_候補" & i).Caption
+        
+        '休暇区分入れ替え用
+        比較元_項目 = L_候補_区分2.Caption
+        比較先_項目 = カレンダー.Controls("L_候補_区分" & i).Caption
+        
+        比較元_時間 = L_候補_時間2.Caption
+        比較先_時間 = カレンダー.Controls("L_候補_時間" & i).Caption
+        
+        比較元_理由 = L_候補_理由2.Caption
+        比較先_理由 = カレンダー.Controls("L_候補_理由" & i).Caption
+        
+        If L_候補2.Caption > 比較先_日付 Then
+            '日付
+            L_候補2.Caption = Format(比較先_日付, "yy/mm/dd(aaa)")
+            カレンダー.Controls("L_候補" & i).Caption = 日付 & "(" & WeekdayName(Weekday(日付), True) & ")"
+            '休暇区分
+            L_候補_区分2.Caption = 比較先_項目
+            カレンダー.Controls("L_候補_区分" & i).Caption = 比較元_項目
+            '時間範囲
+            L_候補_時間2.Caption = 比較先_時間
+            カレンダー.Controls("L_候補_時間" & i).Caption = 比較元_時間
+            '理由
+            L_候補_理由2.Caption = 比較先_理由
+            カレンダー.Controls("L_候補_理由" & i).Caption = 比較元_理由
+
+        End If
+    Next
+
+    For i = 4 To データ件数
+        日付 = Left(L_候補3.Caption, 8)
+        比較先_日付 = カレンダー.Controls("L_候補" & i).Caption
+        
+        '休暇区分入れ替え用
+        比較元_項目 = L_候補_区分3.Caption
+        比較先_項目 = カレンダー.Controls("L_候補_区分" & i).Caption
+        
+        比較元_時間 = L_候補_時間3.Caption
+        比較先_時間 = カレンダー.Controls("L_候補_時間" & i).Caption
+        
+        比較元_理由 = L_候補_理由3.Caption
+        比較先_理由 = カレンダー.Controls("L_候補_理由" & i).Caption
+        
+        
+        If L_候補3.Caption > 比較先_日付 Then
+            '日付
+            L_候補3.Caption = Format(比較先_日付, "yy/mm/dd(aaa)")
+            カレンダー.Controls("L_候補" & i).Caption = 日付 & "(" & WeekdayName(Weekday(日付), True) & ")"
+            '区分
+            L_候補_区分3.Caption = 比較先_項目
+            カレンダー.Controls("L_候補_区分" & i).Caption = 比較元_項目
+            '時間範囲
+            L_候補_時間3.Caption = 比較先_時間
+            カレンダー.Controls("L_候補_時間" & i).Caption = 比較元_時間
+            '理由
+            L_候補_理由3.Caption = 比較先_理由
+            カレンダー.Controls("L_候補_理由" & i).Caption = 比較元_理由
+            
+         End If
+    Next
+
+    For i = 5 To データ件数
+        日付 = Left(L_候補4.Caption, 8)
+        比較先_日付 = カレンダー.Controls("L_候補" & i).Caption
+        
+        '休暇区分入れ替え用
+        比較元_項目 = L_候補_区分4.Caption
+        比較先_項目 = カレンダー.Controls("L_候補_区分" & i).Caption
+        
+        比較元_時間 = L_候補_時間4.Caption
+        比較先_時間 = カレンダー.Controls("L_候補_時間" & i).Caption
+        
+        比較元_理由 = L_候補_理由4.Caption
+        比較先_理由 = カレンダー.Controls("L_候補_理由" & i).Caption
+        
+        If L_候補4.Caption > 比較先_日付 Then
+            '日付
+            L_候補4.Caption = Format(比較先_日付, "yy/mm/dd(aaa)")
+            カレンダー.Controls("L_候補" & i).Caption = 日付 & "(" & WeekdayName(Weekday(日付), True) & ")"
+            '区分
+            L_候補_区分4.Caption = 比較先_項目
+            カレンダー.Controls("L_候補_区分" & i).Caption = 比較元_項目
+            '時間
+            L_候補_時間4.Caption = 比較先_時間
+            カレンダー.Controls("L_候補_時間" & i).Caption = 比較元_時間
+            '理由
+            L_候補_理由4.Caption = 比較先_理由
+            カレンダー.Controls("L_候補_理由" & i).Caption = 比較元_理由
+        
+        End If
+    Next
+
+    For i = 1 To 5
+        '区分の文字を変更する
+        If カレンダー.Controls("L_候補_区分" & i).Caption = "休暇" Then
+            カレンダー.Controls("L_候補_区分" & i).ForeColor = vbGreen
+        Else
+            カレンダー.Controls("L_候補_区分" & i).ForeColor = vbRed
+        End If
+    Next
+ 
+End Sub
+
+
+'グレーから赤
+Private Sub 休暇申請日_登録(対象日 As Date)
+    '休暇日を反映
+    カレンダー.Controls("L_候補" & 休暇候補_cnt + 1).Caption = Format(対象日, "yy/mm/dd(aaa)")
+    '休暇区分を反映
+    カレンダー.Controls("L_候補_区分" & 休暇候補_cnt + 1).Caption = カレンダー.Lbl_区分一時.Caption
+    '休暇時間を反映
+    カレンダー.Controls("L_候補_時間" & 休暇候補_cnt + 1).Caption = カレンダー.Lbl_時間範囲.Caption
+    '休暇理由を反映
+    カレンダー.Controls("L_候補_理由" & 休暇候補_cnt + 1).Caption = カレンダー.Lbl_理由.Caption
+    
+    
+    休暇候補_cnt = 休暇候補_cnt + 1
+    Call 候補日並び替え
+End Sub
+
+'赤からグレー
+Private Sub 休暇申請日_取消(対象日 As Date)
+    Dim i As Integer
+    Dim 削除行 As Integer
+    
+    '①押された日付のボタンと候補日が一致していたら、候補日から削除する
+    For i = 1 To 5
+        If 対象日 = Left(カレンダー.Controls("L_候補" & i).Caption, 8) Then
+            カレンダー.Controls("L_候補" & i).Caption = ""
+            カレンダー.Controls("L_候補_区分" & i).Caption = ""
+            カレンダー.Controls("L_候補_時間" & i).Caption = ""
+            カレンダー.Controls("L_候補_理由" & i).Caption = ""
+            
+            削除行 = i
+        End If
+    Next
+    If 削除行 = 0 Then Exit Sub 'バグ回避
+    
+    '②カウントを減らす
+    休暇候補_cnt = 休暇候補_cnt - 1
+    
+    '③並び替え　抜けた箇所に最下部の候補日を入れる
+    If 休暇候補_cnt <> 0 And 休暇候補_cnt + 1 <> 削除行 Then
+        '候補日の入れ替え
+        カレンダー.Controls("L_候補" & 削除行).Caption = カレンダー.Controls("L_候補" & 休暇候補_cnt + 1).Caption
+        カレンダー.Controls("L_候補" & 休暇候補_cnt + 1).Caption = ""
+        '休暇区分の入れ替え
+        カレンダー.Controls("L_候補_区分" & 削除行).Caption = カレンダー.Controls("L_候補_区分" & 休暇候補_cnt + 1).Caption
+        カレンダー.Controls("L_候補_区分" & 休暇候補_cnt + 1).Caption = ""
+        '休暇時間の入れ替え
+        カレンダー.Controls("L_候補_時間" & 削除行).Caption = カレンダー.Controls("L_候補_時間" & 休暇候補_cnt + 1).Caption
+        カレンダー.Controls("L_候補_時間" & 休暇候補_cnt + 1).Caption = ""
+        '休暇時間の入れ替え
+        カレンダー.Controls("L_候補_理由" & 削除行).Caption = カレンダー.Controls("L_候補_理由" & 休暇候補_cnt + 1).Caption
+        カレンダー.Controls("L_候補_理由" & 休暇候補_cnt + 1).Caption = ""
+    
+    End If
+    
+    Call 候補日並び替え
+
+End Sub
+
+'各日付のボタンが押された時の処理
+Private Sub Button_Push(ID As Integer)
+    Dim 月違い As Integer
+    Lbl_区分一時.Caption = ""
+    Lbl_時間範囲.Caption = ""
+    
+    'プログラム1 | 当月のカレンダーに前月の日付が入る場合
+    If ID <= 7 Then
+        If Int(カレンダー.Controls("L" & ID).Caption) > Int(カレンダー.L8.Caption) Then 月違い = -1
+    'プログラム2 | 翌月のカレンダーに前月の日付が入る場合
+    ElseIf ID >= 29 Then
+        If Int(カレンダー.Controls("L" & ID).Caption) < Int(カレンダー.L28.Caption) Then 月違い = 1
+    End If
+    
+    Dim 選択日付 As Date: Dim f
+    選択日付 = DateSerial(L_Year.Caption, L_Month.Caption + 月違い, カレンダー.Controls("L" & ID).Caption)
+    
+    '過去日付は管理者以外操作できない
+    If Date > 選択日付 Then
+            
+        If Lbl_管理者モード.Caption <> "1" Then
+                
+            過去日付.Show
+            管理者パスワード.Show
+            Exit Sub
+        End If
+        
+    End If
+    
+    'プログラム3 | グレー → 赤 →　緑　→グレー　→　赤→緑
+    If カレンダー.Controls("cb_" & ID).BackColor = &HFFFFFF Then
+            
+        '最大5件まで
+        If 休暇候補_cnt = 5 Then
+            MsgBox "申請は一度に5日間のみです"
+        Else
+            
+            Lbl_選択日付.Caption = DateSerial(L_Year.Caption, L_Month.Caption + 月違い, カレンダー.Controls("L" & ID).Caption)
+            
+            '休暇取消モード
+            If カレンダー.Lbl_通常_取消.Caption = "2" Or カレンダー.Lbl_通常_取消.Caption = "4" Or _
+                カレンダー.Lbl_通常_取消.Caption = "6" Or カレンダー.Lbl_通常_取消.Caption = "8" Or カレンダー.Lbl_通常_取消.Caption = "9" Then
+                
+                カレンダー.Lbl_区分一時.Caption = "取消"
+                
+                Call 休暇申請日_登録(DateSerial(L_Year.Caption, L_Month.Caption + 月違い, カレンダー.Controls("L" & ID).Caption))
+                
+                カレンダー.Controls("cb_" & ID).BackColor = 255  'ボタンを赤色にする
+                
+            Else '通常申請モード
+                区分.Show
+                
+                '区分が未入力の場合は処理をしない
+                If Lbl_区分一時.Caption <> "" Then
+                    Call 休暇申請日_登録(DateSerial(L_Year.Caption, L_Month.Caption + 月違い, カレンダー.Controls("L" & ID).Caption))
+                    カレンダー.Controls("cb_" & ID).BackColor = 255  'ボタンを赤色にする
+                End If
+            End If
+        End If
+        
+    Else ' 赤→グレー
+        カレンダー.Controls("cb_" & ID).BackColor = &HFFFFFF
+        Call 休暇申請日_取消(DateSerial(L_Year.Caption, L_Month.Caption + 月違い, カレンダー.Controls("L" & ID).Caption))
+
+    End If
+
+End Sub
+
+
+'★★★★★申請実行（メール＆WEBサーバーへデータ送信）
+Private Sub Cmd_申請_Click()
+ 
+    With カレンダー
+    
+        Dim ans As Integer
+        Dim i As Integer
+        
+        '■■■□■①実行前の確認プログラム■■■□■
+        
+        '候補日が選択されていなかったら処理しない
+        If L_候補1.Caption = "" Then
+            MsgBox ("候補日を選択してください")
+            Exit Sub
+        End If
+            
+        '実行前の確認
+        
+        メール送信確認.Show
+        ans = Lbl_送信確認戻り値.Caption
+        
+        If ans <> 1 Then Exit Sub  '「いいえ」が押されたら終了
+    
+        
+        '■■■□■②メール送信プログラム■■■□■
+        
+        Dim mailbody As String, credit As String
+        Dim mailbody2 As String
+        Dim 件名 As String
+        
+        Dim 宛先TO() As String
+        Dim 宛先CC() As String
+        Dim TO_cnt As Integer, CC_cnt As Integer
+        Dim 本社総務_cnt As Integer
+        
+        'プログラム3｜メール宛先
+        '①メールの宛先数を計算
+        TO_cnt = Application.WorksheetFunction.CountA(Sheets("各種設定").Range("K4:K8"))
+        CC_cnt = Application.WorksheetFunction.CountA(Sheets("各種設定").Range("K9:K13"))
+        本社総務_cnt = Application.WorksheetFunction.CountA(Sheets("各種設定").Range("K14:K18"))
+        
+        ReDim 宛先CC(CC_cnt)
+        
+        '特別/介護/看護　申請・取消は本社総務部を宛先に入れる
+        If Lbl_通常_取消.Caption >= 3 And Lbl_通常_取消.Caption <> 9 Then
+            ReDim 宛先TO(TO_cnt + 本社総務_cnt)
+            
+            '先に本社総務を宛先設定する
+            For i = 0 To 本社総務_cnt - 1
+                宛先TO(i) = Sheets("各種設定").Cells(i + 14, "K").Value
+            Next
+            
+            '次に各部署の該当者
+            For i = 本社総務_cnt To TO_cnt + 本社総務_cnt - 1
+                宛先TO(i) = Sheets("各種設定").Cells(i - 本社総務_cnt + 4, "K").Value
+            Next
+    
+        Else '特別/介護/看護休暇以外は総務部にメールがいかないようにする
+            ReDim 宛先TO(TO_cnt)
+            'メールの宛先を設定するための準備
+            For i = 0 To TO_cnt - 1
+                宛先TO(i) = Sheets("各種設定").Cells(i + 4, "K").Value
+            Next
+        
+        End If
+        
+        
+        'メールのCCを設定するための準備
+        For i = 0 To CC_cnt - 1
+            宛先CC(i) = Sheets("各種設定").Cells(i + 9, "K").Value
+        Next
+            
+        'プログラム4｜メール本文を設定
+        Dim 部署名 As String
+        部署名 = Sheets("各種設定").Range("O4").Value
+        
+        Dim 従業員名 As String, 従業員コード As String
+        従業員名 = .Lbl_名前.Caption
+        従業員コード = .Lbl_従業員コード.Caption
+        
+        '件名と本文1行目
+        
+        Select Case .Lbl_通常_取消.Caption
+            Case 1 '通常申請
+                件名 = "【休暇申請】　" & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から休暇申請が届きました" & vbCrLf
+                    
+            Case 2 '通常取消
+                件名 = "【休暇取消連絡】　" & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から取消連絡が届きました" & vbCrLf
+                    
+            Case 9   '遅刻早退取消
+                件名 = "【遅刻早退取消連絡】　" & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から遅刻早退の取消連絡が届きました" & vbCrLf
+                    
+                    
+            Case 3    '特別休暇
+                件名 = "【特別休暇申請】　" & 部署名 & " " & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から特別休暇申請が届きました" & vbCrLf
+                    
+            Case 4   '特別休暇取消
+            
+                件名 = "【特別休暇取消】　" & 部署名 & " " & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から特別休暇の取消連絡が届きました" & vbCrLf
+                    
+            Case 5    '看護休暇
+            
+                件名 = "【看護休暇申請】　" & 部署名 & " " & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から看護休暇申請が届きました" & vbCrLf & vbCrLf & _
+                    "  1.看護対象者名：" & lbl_看護対象者名.Caption & vbCrLf & _
+                    "  2.看護対象者の生年月日：" & Lbl_看護対象者_生年月日.Caption & vbCrLf & _
+                    "  3.看護対象者の人数：" & Lbl_介護看護対象人数.Caption & vbCrLf
+                    
+            Case 6    '看護休暇_取消
+            
+                件名 = "【看護休暇取消】　" & 部署名 & " " & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から看護休暇の取消連絡が届きました" & vbCrLf
+                    
+            Case 7    '介護休暇
+            
+                件名 = "【介護休暇申請】　" & 部署名 & " " & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から介護休暇申請が届きました" & vbCrLf & vbCrLf & _
+                    "  1.介護対象者名：" & Lbl_介護対象者名.Caption & vbCrLf & _
+                    "  2.介護対象者の続柄：" & Lbl_介護対象者_続柄.Caption & vbCrLf & _
+                    "  3.介護対象者の人数：" & Lbl_介護看護対象人数.Caption & vbCrLf
+                    
+            Case 8     '介護休暇_取消
+                件名 = "【介護休暇取消】　" & 部署名 & " " & 従業員名
+                mailbody = 従業員コード & " " & 従業員名 & _
+                    "  から介護休暇の取消連絡が届きました" & vbCrLf
+            
+        End Select
+    
+        '本文の2行目以降（申請情報の詳細）
+        Dim 時間空白_置き換え As String
+        
+        For i = 1 To 休暇候補_cnt
+            If 11 > Len(.Controls("L_候補_時間" & i).Caption) Then
+                時間空白_置き換え = ""
+            Else
+                時間空白_置き換え = .Controls("L_候補_時間" & i).Caption
+            End If
+                
+            'メール本文を作成
+            mailbody2 = mailbody2 & "(" & i & ")" & _
+                        .Controls("L_候補" & i).Caption & " " & _
+                        .Controls("L_候補_区分" & i).Caption & " " & _
+                        時間空白_置き換え & " ※" & _
+                        .Controls("L_候補_理由" & i).Caption & " " & _
+                        vbCrLf
+        Next
+        
+        If .Lbl_管理者モード.Caption = "1" Then
+            credit = "以上" & "　（代行入力 " & .Lbl_管理者名.Caption & "）"
+        Else
+            credit = "以上"
+        End If
+    
+        
+    '※※※【固定】CDOオブジェクトを作成する
+       Dim gMail As CDO.Message
+       Set gMail = New CDO.Message
+    
+    '※※※【固定】SSL認証を有効にする
+       gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/smtpusessl") = True
+    
+    '※※※【固定】SMTP認証の有効化=trueにする (1)
+       gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate") = 1
+    
+    '※※※【固定】SMTPサーバーとポートの設定 詳細
+       gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/smtpserver") = "smtp.gmail.com"
+       gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/smtpserverport") = 465
+       gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/sendusing") = 2
+    
+    '【修正必要箇所】自分のgmailアカウントのユーザー名とパスワードをここに設定する
+        gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/sendusername") = "toshin.portal.system@gmail.com"
+       gMail.Configuration.Fields.Item _
+       ("http://schemas.microsoft.com/cdo/configuration/sendpassword") = "hrtsmsllawdzezbs"
+    
+    '※※※【固定】設定フィールドを更新する
+       gMail.Configuration.Fields.Update
+    
+    '【修正必要箇所】メールのプロパティと送信するファイルを設定する
+        Dim 送信者表示 As String
+        送信者表示 = Sheets("各種設定").Range("V4").Value
+        
+        With gMail
+            .Subject = 件名
+            .From = "" & 送信者表示 & " <toshin.portal.system@gmail.com>"
+            .To = Join(宛先TO, ",")
+            .CC = Join(宛先CC, ",")
+            .TextBody = mailbody & vbCrLf & mailbody2 & vbCrLf & credit
+        End With
+       
+        'メール送信
+        gMail.Send
+        完了メッセージ.Show  '完了メッセージ
+        Set gMail = Nothing
+            
+        '■■■□■③CSVファイルへ書き込むプログラム■■■□■
+        
+        Dim Target As String, j As Long, buf As String
+        Dim Create_FileName As String
+        Dim 日付文字 As String
+        Dim 開始時間 As String, 終了時間 As String
+        Dim 休暇区分 As String
+        Dim 申請者 As String: 申請者 = Left(.Lbl_名前.Caption, Len(.Lbl_名前.Caption) - 2)
+        
+        Dim 対象部署 As String
+            対象部署 = Sheets("各種設定").Range("M4").Value & "_"
+        Dim 職務区分 As String: 職務区分 = .Lbl_職務区分.Caption
+        Dim アイコンID As String
+        Dim ws As Worksheet
+        
+        If 職務区分 = 1 Then
+            アイコンID = 53  '青
+        Else
+            アイコンID = 51  '赤
+        End If
+        
+        Set ws = Worksheets("各種設定")
+        For i = 5 To 14
+            For j = 17 To 18
+                If ws.Cells(i, j).Value = 従業員コード Then
+                    If j = 17 Then アイコンID = 54  '白
+                    If j = 18 Then アイコンID = 52  '緑
+                End If
+            Next
+        Next
+        
+        アイコンID = 21 ' 広島オリジナル
+        
+        '※取消処理の際はデスクネッツのインポートファイルを作成しない
+        If .Lbl_通常_取消.Caption <> 1 And .Lbl_通常_取消.Caption <> 3 _
+            And .Lbl_通常_取消.Caption <> 5 And .Lbl_通常_取消.Caption <> 7 Then GoTo 有給管理
+        
+        '(1)デスクネッツのスケジュール登録用
+        
+        Create_FileName = 対象部署 & Month(Now) & Day(Now) & Hour(Now) & Minute(Now) & Second(Now) & ".CSV"
+        Target = "\\192.168.1.100\倉庫掲示板用\東伸ポータル\休暇申請\1.有給申請ポスト_デスクネッツ用\" & Create_FileName
+        
+        
+        With CreateObject("ADODB.Stream")
+            .Charset = "shift_jis"
+            .Open
+        
+            'シート運行管理板のセルB5：H25を仕様
+            For i = 1 To 休暇候補_cnt
+            
+                日付文字 = カレンダー.Controls("L_候補" & i).Caption
+                日付文字 = "20" & Left(日付文字, 2) & Mid(日付文字, 4, 2) & Mid(日付文字, 7, 2)
+                
+                '社員とパートでは早退・遅刻の表示仕様が異なる
+                If カレンダー.Lbl_職務区分.Caption = "2" Then
+                    
+                    開始時間 = Left(カレンダー.Controls("L_候補_時間" & i).Caption, 5)
+                    終了時間 = Right(カレンダー.Controls("L_候補_時間" & i).Caption, 5)
+                Else
+                
+                    終了時間 = Left(カレンダー.Controls("L_候補_時間" & i).Caption, 5)
+                    開始時間 = Right(カレンダー.Controls("L_候補_時間" & i).Caption, 5)
+                
+                End If
+                
+                '半角スペースを除去する
+                If Left(開始時間, 1) = " " Then 開始時間 = ""
+                If Left(終了時間, 1) = " " Then 終了時間 = ""
+                
+                'デスクネッツの表示を簡略化するため（08:00～12:00 ⇒ ～12:00)
+                休暇区分 = カレンダー.Controls("L_候補_区分" & i).Caption
+                If 休暇区分 = "遅刻" Then 終了時間 = ""
+                If 休暇区分 = "早退" Then 開始時間 = ""
+                
+                'デスクネッツに「欠勤」と表示させないため
+                If 休暇区分 = "欠勤" Then 休暇区分 = "▲欠勤"
+                
+                If カレンダー.Lbl_通常_取消.Caption = 3 Then 休暇区分 = "特別休暇"
+                If カレンダー.Lbl_通常_取消.Caption = 5 Then 休暇区分 = "看護休暇(公休)"
+                If カレンダー.Lbl_通常_取消.Caption = 7 Then 休暇区分 = "介護休暇(公休)"
+                
+                '1件ごとに書き込みを完了させるため初期化
+                If カレンダー.Lbl_管理者モード = "1" Then
+                    buf = "," & 日付文字 & "," & 開始時間 & "," & 日付文字 & _
+                        "," & 終了時間 & "," & 申請者 & "," & 休暇区分 & "," & "--,,,,,,,フ," & アイコンID & ",,,"
+                Else
+                    buf = "," & 日付文字 & "," & 開始時間 & "," & 日付文字 & _
+                        "," & 終了時間 & "," & 申請者 & "," & 休暇区分 & "," & "--,,,,,,,," & アイコンID & ",,,"
+                End If
+                    
+                .WriteText Left(buf, Len(buf) - 1), 1
+            
+            Next i
+            
+            .SaveToFile Target, 2
+            
+            If Err <> 0 Then
+                .SaveToFile "C:\toshin_system_test\" & Create_FileName, 2
+            End If
+            
+            .Close
+    End With
+    
+    '有給管理エクセル用の処理
+有給管理:
+            
+        Dim 申請者コード As String
+        Dim 申請フラグ As Integer: 申請フラグ = .Lbl_通常_取消.Caption
+        Dim 書込日付 As Date:    Dim 空白ファイル防止FLG As Integer
+        
+        '申請処理時は6桁だが、管理表は4桁で扱っているので変換する
+        申請者コード = Format(Right(.Lbl_従業員コード.Caption, 4), "0000")
+        
+        Create_FileName = 対象部署 & Month(Now) & Day(Now) & Hour(Now) & Minute(Now) & Second(Now) & ".CSV"
+        Target = "\\192.168.1.100\倉庫掲示板用\東伸ポータル\休暇申請\3.有給管理エクセル用\" & Left(対象部署, 2) & "\1.申請\" & Create_FileName
+        
+        With CreateObject("ADODB.Stream")
+            .Charset = "shift_jis"
+            .Open
+            .Charset = "UTF-8"
+            
+            'シート運行管理板のセルB5：H25を仕様
+            For i = 1 To 休暇候補_cnt
+                buf = ""
+                
+                '遅刻・早退は対象外
+                If "休暇" = カレンダー.Controls("L_候補_区分" & i).Caption Or "取消" = カレンダー.Controls("L_候補_区分" & i).Caption Then
+                    
+                    '休暇の取消は通すが、遅刻早退の取消は通さない
+                    If Lbl_通常_取消.Caption < 5 Then
+                        日付文字 = カレンダー.Controls("L_候補" & i).Caption
+                        書込日付 = DateSerial("20" & Left(日付文字, 2), Mid(日付文字, 4, 2), Mid(日付文字, 7, 2))
+                             
+                        '1件ごとに書き込みを完了させるため初期化
+                        buf = Now() & "," & 申請フラグ & "," & 申請者コード & "," & 申請者 & "," & 書込日付 & ","
+                        .WriteText Left(buf, Len(buf) - 1), 1
+                        空白ファイル防止FLG = 1
+                        
+                    End If
+                End If
+            Next i
+                    
+            '遅刻早退欠勤のみの申請であれば、CSVデータが空白になるのでCSVを作成しない
+            If 空白ファイル防止FLG = 1 Then
+                .SaveToFile Target, 2
+            End If
+            
+            .Close
+            
+        End With
+            
+        'カレンダーフォームを閉じる
+        Unload Me
+        
+    '    スタート画面.Show
+    End With 'カレンダー.
+End Sub
+
+Private Sub CommandButton3_Click()
+    Unload Me
+   ' 東伸ポータル.Show
+End Sub
+
+Private Sub CommandButton6_Click()
+    Dim URL As String: URL = "http://192.168.1.200/scripts/dneo/dneo.exe?"
+    ThisWorkbook.FollowHyperlink Address:=URL
+    '不具合対策（デスクネッツからエクセルに戻ってしまう）
+    Application.Wait (Now + TimeValue("0:00:03"))
+End Sub
+
+'従業員コードを元に氏名を出力する
+Private Sub Text_従業員CD_Change()
+    Dim CD As Long
+    Dim 名前 As String
+    Dim i As Integer: i = 4
+    
+    If Text_従業員CD.Text <> "" Then CD = Text_従業員CD.Text
+    
+    With Sheets("従業員マスタ")
+        Do While .Cells(i, 2).Value <> ""
+            If CD = .Cells(i, 2).Value Then 名前 = .Cells(i, 3).Value
+            i = i + 1
+        Loop
+    End With
+    
+    Lbl_名前.Caption = 名前
+    
+End Sub
+
+'ユーザーフォームが選択されたら
+Private Sub UserForm_Activate()
+    Dim i As Integer
+    Dim 基準日付 As Date: 基準日付 = DateSerial(Year(Date), Month(Date), 1)
+    Dim 基準日付の曜日 As Integer: 基準日付の曜日 = Weekday(基準日付)
+    Dim yyyy, mm, dd As String
+
+
+    '看護、介護休暇機能追加
+    If Lbl_通常_取消.Caption = 5 And lbl_看護対象者名.Caption = "" Then
+        Me.Hide
+    End If
+    
+    If Lbl_通常_取消.Caption = 7 And Lbl_介護対象者名.Caption = "" Then
+        Me.Hide
+    End If
+    
+    L_Year.Caption = Year(基準日付)
+    L_Month.Caption = Month(基準日付)
+    
+    For i = 1 To 42
+        カレンダー.Controls("L" & i).Enabled = True
+        If i < 基準日付の曜日 Then カレンダー.Controls("L" & i).Enabled = False
+        
+        カレンダー.Controls("L" & i).Caption = Format(Day(i + 基準日付 - 基準日付の曜日), "00")
+    
+        If L_Month.Caption <> Month(i + 基準日付 - 基準日付の曜日) Then
+            カレンダー.Controls("L" & i).Enabled = False
+        End If
+    
+    Next
+    
+    Lbl_管理者モード.Caption = ""
+    If スタート画面.Lbl_管理者Flg = "1" Then
+        Lbl_管理者モード.Caption = "1"
+    End If
+
+End Sub
+
+
+'カレンダー作成【前月】
+Private Sub b_back_Click()
+
+    Dim i As Integer: Dim j As Integer
+    Dim 基準日付 As Date: 基準日付 = DateSerial(L_Year.Caption, L_Month.Caption - 1, 1)
+    Dim 基準日付の曜日 As Integer: 基準日付の曜日 = Weekday(基準日付)
+    Dim yyyy, mm, dd As String
+
+    L_Year.Caption = Year(基準日付)
+    L_Month.Caption = Month(基準日付)
+    
+    With カレンダー
+        For i = 1 To 42
+            .Controls("L" & i).Enabled = True
+    
+            If i < 基準日付の曜日 Then .Controls("L" & i).Enabled = False
+    
+            .Controls("L" & i).Caption = Format(Day(i + 基準日付 - 基準日付の曜日), "00")
+            .Controls("cb_" & i).BackColor = &HFFFFFF
+            
+            If L_Month.Caption <> Month(i + 基準日付 - 基準日付の曜日) Then
+                .Controls("L" & i).Enabled = False
+            End If
+            
+            '休暇候補日と一致する箇所は赤色に
+            For j = 1 To 5
+                If Left(.Controls("L_候補" & j).Caption, 8) = _
+                    Right(i + 基準日付 - 基準日付の曜日, 8) Then
+                        .Controls("cb_" & i).BackColor = vbRed
+                End If
+            Next
+        Next
+    End With
+   
+    
+End Sub
+
+'カレンダー作成【翌月】
+Private Sub b_next_Click()
+
+    Dim i, j As Integer
+    Dim 基準日付 As Date: 基準日付 = DateSerial(L_Year.Caption, L_Month.Caption + 1, 1)
+    Dim 基準日付の曜日 As Integer: 基準日付の曜日 = Weekday(基準日付)
+    Dim yyyy, mm, dd As String
+
+    L_Year.Caption = Year(基準日付)
+    L_Month.Caption = Month(基準日付)
+    
+    With カレンダー
+        For i = 1 To 42
+            .Controls("L" & i).Enabled = True
+    
+            If i < 基準日付の曜日 Then .Controls("L" & i).Enabled = False
+            
+            .Controls("L" & i).Caption = Format(Day(i + 基準日付 - 基準日付の曜日), "00")
+            .Controls("cb_" & i).BackColor = &HFFFFFF
+            
+            If L_Month.Caption <> Month(i + 基準日付 - 基準日付の曜日) Then
+                .Controls("L" & i).Enabled = False
+            End If
+            
+            
+            '休暇候補日と一致する箇所は赤色に
+            For j = 1 To 5
+                If Left(.Controls("L_候補" & j).Caption, 8) = _
+                    Right(i + 基準日付 - 基準日付の曜日, 8) Then
+                        .Controls("cb_" & i).BackColor = vbRed
+                End If
+            Next
+            
+        Next
+    End With
+End Sub
+
+'ヘルプマークが押されたら
+Private Sub CommandButton5_Click()
+    ヘルプ.Show
+End Sub
+
+'×ボタンでは閉じられないようにする
+Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
+    If CloseMode = 0 Then
+        MsgBox "「閉じる」ボタンを押してください", 48
+        Cancel = True
+    End If
+End Sub
+
+Private Sub cb_1_Click()
+    Call Button_Push(1)
+End Sub
+Private Sub cb_2_Click()
+    Call Button_Push(2)
+End Sub
+Private Sub cb_3_Click()
+    Call Button_Push(3)
+End Sub
+Private Sub cb_4_Click()
+    Call Button_Push(4)
+End Sub
+Private Sub cb_5_Click()
+    Call Button_Push(5)
+End Sub
+Private Sub cb_6_Click()
+    Call Button_Push(6)
+End Sub
+Private Sub cb_7_Click()
+    Call Button_Push(7)
+End Sub
+Private Sub cb_8_Click()
+    Call Button_Push(8)
+End Sub
+Private Sub cb_9_Click()
+    Call Button_Push(9)
+End Sub
+Private Sub cb_10_Click()
+    Call Button_Push(10)
+End Sub
+Private Sub cb_11_Click()
+    Call Button_Push(11)
+End Sub
+Private Sub cb_12_Click()
+    Call Button_Push(12)
+End Sub
+Private Sub cb_13_Click()
+    Call Button_Push(13)
+End Sub
+Private Sub cb_14_Click()
+    Call Button_Push(14)
+End Sub
+Private Sub cb_15_Click()
+    Call Button_Push(15)
+End Sub
+Private Sub cb_16_Click()
+    Call Button_Push(16)
+End Sub
+Private Sub cb_17_Click()
+    Call Button_Push(17)
+End Sub
+Private Sub cb_18_Click()
+    Call Button_Push(18)
+End Sub
+Private Sub cb_19_Click()
+    Call Button_Push(19)
+End Sub
+Private Sub cb_20_Click()
+    Call Button_Push(20)
+End Sub
+Private Sub cb_21_Click()
+    Call Button_Push(21)
+End Sub
+Private Sub cb_22_Click()
+    Call Button_Push(22)
+End Sub
+Private Sub cb_23_Click()
+    Call Button_Push(23)
+End Sub
+Private Sub cb_24_Click()
+    Call Button_Push(24)
+End Sub
+Private Sub cb_25_Click()
+    Call Button_Push(25)
+End Sub
+Private Sub cb_26_Click()
+    Call Button_Push(26)
+End Sub
+Private Sub cb_27_Click()
+    Call Button_Push(27)
+End Sub
+Private Sub cb_28_Click()
+    Call Button_Push(28)
+End Sub
+Private Sub cb_29_Click()
+    Call Button_Push(29)
+End Sub
+Private Sub cb_30_Click()
+    Call Button_Push(30)
+End Sub
+Private Sub cb_31_Click()
+    Call Button_Push(31)
+End Sub
+Private Sub cb_32_Click()
+    Call Button_Push(32)
+End Sub
+Private Sub cb_33_Click()
+    Call Button_Push(33)
+End Sub
+Private Sub cb_34_Click()
+    Call Button_Push(34)
+End Sub
+Private Sub cb_35_Click()
+    Call Button_Push(35)
+End Sub
+Private Sub cb_36_Click()
+    Call Button_Push(36)
+End Sub
+Private Sub cb_37_Click()
+    Call Button_Push(37)
+End Sub
+Private Sub cb_38_Click()
+    Call Button_Push(38)
+End Sub
+Private Sub cb_39_Click()
+    Call Button_Push(39)
+End Sub
+Private Sub cb_40_Click()
+    Call Button_Push(40)
+End Sub
+Private Sub cb_41_Click()
+    Call Button_Push(41)
+End Sub
+Private Sub cb_42_Click()
+    Call Button_Push(42)
+End Sub
+
+'デスクネッツのスケジュールサイズ
+Private Sub CommandButton1_Click()
+WebBrowser2.Document.Body.runtimeStyle.Zoom = "75%"
+End Sub
+
+'デスクネッツのスケジュールサイズ
+Private Sub CommandButton2_Click()
+WebBrowser2.Document.Body.runtimeStyle.Zoom = "125%"
+End Sub
+
+
+'デスクネッツのスケジュールサイズ
+Private Sub CommandButton4_Click()
+WebBrowser2.Document.Body.runtimeStyle.Zoom = "100%"
+End Sub
+
