@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver import Chrome
 
+#test
 # 定数の設定
 FILE_PATH = r'\\192.168.1.100\倉庫掲示板用\東伸ポータル\休暇申請\1.有給申請ポスト_デスクネッツ用\*.csv'
 FILE_DIR = r'\\192.168.1.100\倉庫掲示板用\東伸ポータル\休暇申請\2.有給処理済み_デスクネッツ用'
