@@ -1,0 +1,120 @@
+import time
+import glob
+import os
+import pyautogui
+import pyperclip
+import shutil
+import sys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver import Chrome
+
+# 定数の設定
+FILE_PATH = r'\\192.168.1.100\倉庫掲示板用\東伸ポータル\休暇申請\1.有給申請ポスト_デスクネッツ用\*.csv'
+FILE_DIR = r'\\192.168.1.100\倉庫掲示板用\東伸ポータル\休暇申請\2.有給処理済み_デスクネッツ用'
+CHROME_DRIVER_PATH = "C:\physon\chromedriver.exe"
+WEB_URL = "http://192.168.1.200/scripts/dneo/dneo.exe?cmd=schmsetimport"
+
+BUSYO_DICT = {
+    "01": "本社運輸ポータル用",
+    "02": "本社バスポータル用",
+    "12": "本社配送",
+    "1A": "豊田ポータル1係用",
+    "1B": "豊田ポータル2係用",
+    "1C": "豊田ポータル3係用",
+    "1D": "豊田ポータル輸送用",
+    "1E": "豊田ポータル輸入事務所用",
+    "1G": "豊田営業所",
+    "1H": "豊田ポータル事務グループ用",
+    "2A": "西尾ポータル用",
+    "2B": "第3Cポータル用",
+    "8A": "本社かねのてオフィス",
+    "8B": "総務部",
+    "T1": "高梁ポータル部品倉庫",
+    "T2": "高梁ポータル製品倉庫",
+    "T3": "高梁ポータル管理",
+    # その他の部署コードとID
+    "X2": "愛西物流"
+}
+
+def initialize_driver():
+    service = Service(CHROME_DRIVER_PATH)
+    driver = Chrome(service=service)
+    return driver
+
+def login(driver):
+    driver.get(WEB_URL)
+    time.sleep(3)
+    driver.find_element(by=By.NAME, value="uid").send_keys("武久聡")
+    driver.find_element(by=By.NAME, value="_word").send_keys("system24@")
+    driver.find_element(by=By.ID, value="login-btn").click()
+    time.sleep(3)
+
+def process_file(driver, file_path, input_id, offset):
+    #組織名またはアカウント名をコピー
+    pyperclip.copy(input_id)
+    #インポート対象選択　「ユーザー・組織」ボタンをクリック
+    driver.find_element(by=By.CLASS_NAME, value="jco-sel-btn").click()
+    time.sleep(5)
+    #検索タブをクリック
+    search_tab = driver.find_element(By.XPATH, '/html/body/div[9]/div[2]/div/div[1]/ul/li[1]')
+    search_tab.click()
+    time.sleep(2)
+    #検索項目欄をクリック
+    input_box = driver.find_element(By.XPATH, '/html/body/div[9]/div[2]/div/div[2]/div[1]/div[1]/form/dl[1]/dd/input' if offset == 50 else '/html/body/div[9]/div[2]/div/div[2]/div[1]/div[1]/form/dl[2]/dd[1]/input')
+    input_box.click()
+    time.sleep(2)
+    #いったんクリアにする
+    pyautogui.hotkey("ctrl", "a")
+    pyautogui.press('delete')
+    #組織またはアカウント名を貼り付ける
+    pyautogui.hotkey("ctrl", "v")
+    time.sleep(1)
+    #検索実行
+    pyautogui.press('enter')
+    time.sleep(3)
+    #リストアップされた最上段のアカウントをクリックする
+    driver.find_element(By.XPATH, '/html/body/div[9]/div[2]/div/div[2]/div[2]/div/div[1]/div/table/tbody/tr/td[1]').click()
+    time.sleep(1)
+    #OKボタンをオス
+    driver.find_element(By.XPATH, '/html/body/div[9]/div[3]/div/button[1]/span').click()
+    time.sleep(1)
+    #対象のCSVファイルを指定する
+    driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[3]/td/div/input').send_keys(file_path)
+    time.sleep(1)
+    #インポート実行
+    driver.find_element(by=By.CLASS_NAME, value="jco-import-submit").click()
+    time.sleep(2)
+    pyautogui.press('enter')
+
+def main():
+    files = glob.glob(FILE_PATH)
+    file_count = len(files)
+    print(file_count)
+    
+    if file_count == 0:
+        print("終了")
+        return
+
+    driver = initialize_driver()
+    try:
+        login(driver)
+        for i, file in enumerate(files):
+            latest_file_fullpath = os.path.abspath(file)
+            busyo_code = file[53:55]
+            print(busyo_code);
+            
+            
+            input_id = BUSYO_DICT.get(busyo_code, "広島ポータル用")
+            offset = 50 if busyo_code in ["8A", "8B", "1G"] else 0
+            process_file(driver, latest_file_fullpath, input_id, offset)
+            shutil.move(file, FILE_DIR)
+            if i == file_count - 1:
+                driver.quit()
+    except Exception as e:
+        print(e)
+        driver.quit()
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
